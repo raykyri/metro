@@ -4,12 +4,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {NormalizedExportsLikeMap, ResolutionContext} from '../types';
+                                                                          
 
 import {matchSubpathPattern} from './matchSubpathPattern';
 import {reduceExportsLikeMap} from './reduceExportsLikeMap';
@@ -21,19 +21,19 @@ import {reduceExportsLikeMap} from './reduceExportsLikeMap';
  * Points spec](https://nodejs.org/docs/latest-v19.x/api/packages.html#package-entry-points).
  */
 export function matchSubpathFromExportsLike(
-  context: ResolutionContext,
+  context                   ,
   /**
    * The package-relative subpath (beginning with '.') to match against either
    * an exact subpath key or subpath pattern key in "exports".
    */
-  subpath: string,
-  exportsLikeMap: NormalizedExportsLikeMap,
-  platform: string | null,
-  createConfigError: (reason: string) => Error,
-): $ReadOnly<{
-  target: string | null,
-  patternMatch: string | null,
-}> {
+  subpath        ,
+  exportsLikeMap                          ,
+  platform               ,
+  createConfigError                           ,
+)             
+                        
+                              
+   {
   const conditionNames = new Set([
     'default',
     ...context.unstable_conditionNames,

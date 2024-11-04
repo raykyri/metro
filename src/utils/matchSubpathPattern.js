@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict
+ *       strict
  * @format
  * @oncall react_native
  */
@@ -16,9 +16,9 @@
  * See https://nodejs.org/docs/latest-v19.x/api/packages.html#subpath-patterns.
  */
 export function matchSubpathPattern(
-  subpathPattern: string,
-  subpath: string,
-): string | null {
+  subpathPattern        ,
+  subpath        ,
+)                {
   const [patternBase, patternTrailer] = subpathPattern.split('*');
 
   if (subpath.startsWith(patternBase) && subpath.endsWith(patternTrailer)) {

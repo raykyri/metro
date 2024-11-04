@@ -4,28 +4,28 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
 'use strict';
 
-export type {
-  AssetFileResolution,
-  CustomResolutionContext,
-  CustomResolver,
-  CustomResolverOptions,
-  DoesFileExist,
-  FileAndDirCandidates,
-  FileCandidates,
-  FileResolution,
-  FileSystemLookup,
-  ResolutionContext,
-  Resolution,
-  ResolveAsset,
-  Result,
-} from './types';
+             
+                      
+                          
+                 
+                        
+                
+                       
+                 
+                 
+                   
+                    
+             
+               
+         
+                 
 
 const Resolver = {
   FailedToResolveNameError: require('./errors/FailedToResolveNameError'),

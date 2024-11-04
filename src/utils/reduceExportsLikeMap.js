@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
@@ -13,18 +13,18 @@
  * Reduce an "exports"-like mapping to a flat subpath mapping after resolving
  * conditional exports.
  */
-import type {
-  ExportsLikeMap,
-  FlattenedExportMap,
-  NormalizedExportsLikeMap,
-} from '../types';
+             
+                 
+                     
+                           
+                  
 
 export function reduceExportsLikeMap(
-  exportsLikeMap: NormalizedExportsLikeMap,
-  conditionNames: $ReadOnlySet<string>,
-  createConfigError: (reason: string) => Error,
-): FlattenedExportMap {
-  const result = new Map<string, string | null>();
+  exportsLikeMap                          ,
+  conditionNames                      ,
+  createConfigError                           ,
+)                     {
+  const result = new Map                       ();
 
   for (const [subpath, value] of exportsLikeMap) {
     const subpathValue = reduceConditionalExport(value, conditionNames);
@@ -59,13 +59,13 @@ export function reduceExportsLikeMap(
  * See https://nodejs.org/docs/latest-v19.x/api/packages.html#conditional-exports.
  */
 function reduceConditionalExport(
-  subpathValue: $Values<ExportsLikeMap>,
-  conditionNames: $ReadOnlySet<string>,
-): string | null | 'no-match' {
+  subpathValue                         ,
+  conditionNames                      ,
+)                             {
   let reducedValue = subpathValue;
 
   while (reducedValue != null && typeof reducedValue !== 'string') {
-    let match: typeof subpathValue | 'no-match';
+    let match                                  ;
 
     // when conditions are present and default is not specified
     // the default condition is implicitly set to null, to allow

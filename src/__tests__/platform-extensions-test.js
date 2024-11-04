@@ -4,12 +4,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {ResolutionContext} from '../index';
+                                                
 
 import FailedToResolvePathError from '../errors/FailedToResolvePathError';
 import Resolver from '../index';
@@ -25,7 +25,7 @@ const fileMap = {
 };
 
 describe('preferNativePlatform: true', () => {
-  const context: ResolutionContext = {
+  const context                    = {
     ...createResolutionContext(fileMap),
     originModulePath: '/root/project/foo.js',
     preferNativePlatform: true,
@@ -61,7 +61,7 @@ describe('preferNativePlatform: true', () => {
 });
 
 describe('preferNativePlatform: false', () => {
-  const context: ResolutionContext = {
+  const context                    = {
     ...createResolutionContext(fileMap),
     originModulePath: '/root/project/foo.js',
     preferNativePlatform: false,

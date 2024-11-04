@@ -4,12 +4,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {AssetResolution, ResolutionContext} from './types';
+                                                                
 
 import path from 'path';
 
@@ -19,9 +19,9 @@ import path from 'path';
  * behaviour via `context.resolveAsset`.
  */
 export default function resolveAsset(
-  context: ResolutionContext,
-  filePath: string,
-): AssetResolution | null {
+  context                   ,
+  filePath        ,
+)                         {
   const dirPath = path.dirname(filePath);
   const extension = path.extname(filePath);
   const basename = path.basename(filePath, extension);

@@ -4,13 +4,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {ResolutionContext} from '../index';
-import type {PackageJson} from '../types';
+                                                
+                                          
 
 import path from 'path';
 
@@ -18,9 +18,9 @@ import path from 'path';
  * Data structure approximating a file tree. Should be populated with complete
  * paths mapping to file contents.
  */
-type MockFileMap = $ReadOnly<{
-  [path: string]: ?(string | $ReadOnly<{realPath: ?string}>),
-}>;
+                              
+                                                             
+   
 
 /**
  * Create a new partial `ResolutionContext` object given a mock file structure.
@@ -28,9 +28,9 @@ type MockFileMap = $ReadOnly<{
  * consuming tests.
  */
 export function createResolutionContext(
-  fileMap: MockFileMap = {},
-): $Diff<ResolutionContext, {originModulePath: string}> {
-  const directorySet = new Set<string>();
+  fileMap              = {},
+)                                                       {
+  const directorySet = new Set        ();
   for (const filePath of Object.keys(fileMap)) {
     let currentDir = filePath;
     let prevDir;
@@ -47,7 +47,7 @@ export function createResolutionContext(
     assetExts: new Set(['jpg', 'png']),
     customResolverOptions: {},
     disableHierarchicalLookup: false,
-    doesFileExist: (filePath: string) =>
+    doesFileExist: (filePath        ) =>
       // Should return false unless realpath(filePath) exists. We mock shallow
       // dereferencing.
       fileMap[filePath] != null &&
@@ -79,10 +79,10 @@ export function createResolutionContext(
     mainFields: ['browser', 'main'],
     nodeModulesPaths: [],
     preferNativePlatform: false,
-    redirectModulePath: (filePath: string) => filePath,
-    resolveAsset: (filePath: string) => null,
-    resolveHasteModule: (name: string) => null,
-    resolveHastePackage: (name: string) => null,
+    redirectModulePath: (filePath        ) => filePath,
+    resolveAsset: (filePath        ) => null,
+    resolveHasteModule: (name        ) => null,
+    resolveHastePackage: (name        ) => null,
     sourceExts: ['js', 'jsx', 'json', 'ts', 'tsx'],
     unstable_conditionNames: ['require'],
     unstable_conditionsByPlatform: {
@@ -99,12 +99,12 @@ export function createResolutionContext(
  * `ResolutionContext` based on the input mock file/package.json map.
  */
 export function createPackageAccessors(
-  fileOrPackageJsonMap: MockFileMap | {[path: string]: PackageJson},
-): $ReadOnly<{
-  getPackage: ResolutionContext['getPackage'],
-  getPackageForModule: ResolutionContext['getPackageForModule'],
-}> {
-  const getPackage = (packageJsonPath: string) => {
+  fileOrPackageJsonMap                                             ,
+)             
+                                              
+                                                                
+   {
+  const getPackage = (packageJsonPath        ) => {
     const contents = fileOrPackageJsonMap[packageJsonPath];
 
     if (typeof contents === 'string') {
@@ -117,7 +117,7 @@ export function createPackageAccessors(
 
     return null;
   };
-  const getPackageForModule = (modulePath: string) => {
+  const getPackageForModule = (modulePath        ) => {
     const parsedPath = path.parse(modulePath);
     const root = parsedPath.root;
     let dir = path.join(parsedPath.dir, parsedPath.base);

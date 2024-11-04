@@ -4,12 +4,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {ExportsLikeMap, FileResolution, ResolutionContext} from './types';
+                                                                               
 
 import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
 import PackageImportNotResolvedError from './errors/PackageImportNotResolvedError';
@@ -31,16 +31,16 @@ import path from 'path';
  *   by `importsMap` is invalid.
  */
 export function resolvePackageTargetFromImports(
-  context: ResolutionContext,
+  context                   ,
   /**
    * The absolute path to the package.json
    */
-  packagePath: string,
-  importPath: string,
-  importsMap: ExportsLikeMap,
-  platform: string | null,
-): FileResolution {
-  const createConfigError = (reason: string) => {
+  packagePath        ,
+  importPath        ,
+  importsMap                ,
+  platform               ,
+)                 {
+  const createConfigError = (reason        ) => {
     return new InvalidPackageConfigurationError({
       reason,
       packagePath,

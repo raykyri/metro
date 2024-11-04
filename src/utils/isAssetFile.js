@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict
+ *       strict
  * @format
  * @oncall react_native
  */
@@ -16,9 +16,9 @@ import path from 'path';
  * given `assetExts`.
  */
 export default function isAssetFile(
-  filePath: string,
-  assetExts: $ReadOnlySet<string>,
-): boolean {
+  filePath        ,
+  assetExts                      ,
+)          {
   const baseName = path.basename(filePath);
 
   for (let i = baseName.length - 1; i >= 0; i--) {

@@ -4,19 +4,19 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {
-  ExportMapWithFallbacks,
-  ExportsField,
-  ExportsLikeMap,
-  FileResolution,
-  NormalizedExportsLikeMap,
-  ResolutionContext,
-} from './types';
+             
+                         
+               
+                 
+                 
+                           
+                    
+                 
 
 import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
 import PackagePathNotExportedError from './errors/PackagePathNotExportedError';
@@ -44,21 +44,21 @@ import path from 'path';
  *   not exported.
  */
 export function resolvePackageTargetFromExports(
-  context: ResolutionContext,
+  context                   ,
   /**
    * The path to the containing npm package directory.
    */
-  packagePath: string,
+  packagePath        ,
   /**
    * The unresolved absolute path to the target module. This will be converted
    * to a package-relative subpath for comparison.
    */
-  modulePath: string,
-  packageRelativePath: string,
-  exportsField: ExportsField,
-  platform: string | null,
-): FileResolution {
-  const createConfigError = (reason: string) => {
+  modulePath        ,
+  packageRelativePath        ,
+  exportsField              ,
+  platform               ,
+)                 {
+  const createConfigError = (reason        ) => {
     return new InvalidPackageConfigurationError({
       reason,
       packagePath,
@@ -133,7 +133,7 @@ export function resolvePackageTargetFromExports(
  * Convert a module path to the package-relative subpath key to attempt for
  * "exports" field lookup.
  */
-function getExportsSubpath(packageSubpath: string): string {
+function getExportsSubpath(packageSubpath        )         {
   return packageSubpath === '' ? '.' : './' + toPosixPath(packageSubpath);
 }
 
@@ -150,11 +150,11 @@ function getExportsSubpath(packageSubpath: string): string {
  * (Ultimately this should be coupled more closely to the package cache, so that
  * we can clean up immediately rather than on GC.)
  */
-type ExcludeString<T> = T extends string ? empty : T;
-const _normalizedExportsFields: WeakMap<
-  ExcludeString<ExportsField>,
-  NormalizedExportsLikeMap,
-> = new WeakMap();
+                                                     
+const _normalizedExportsFields          
+                              
+                           
+  = new WeakMap();
 
 /**
  * Normalise an "exports"-like field by parsing string shorthand and conditions
@@ -163,9 +163,9 @@ const _normalizedExportsFields: WeakMap<
  * See https://nodejs.org/docs/latest-v19.x/api/packages.html#exports-sugar.
  */
 function normalizeExportsField(
-  exportsField: ExportsField,
-  createConfigError: (reason: string) => Error,
-): NormalizedExportsLikeMap {
+  exportsField              ,
+  createConfigError                           ,
+)                           {
   let rootValue;
 
   if (typeof exportsField === 'string') {
@@ -181,7 +181,7 @@ function normalizeExportsField(
     // If an array of strings, use first value with valid specifier (root shorthand)
     if (exportsField.every(value => typeof value === 'string')) {
       // $FlowIssue[incompatible-call] exportsField is refined to `string[]`
-      rootValue = exportsField.find((value: string) => value.startsWith('./'));
+      rootValue = exportsField.find((value        ) => value.startsWith('./'));
     } else {
       // Otherwise, should be a condition map and fallback string (Node.js <13.7)
       rootValue = exportsField[0];
@@ -197,7 +197,7 @@ function normalizeExportsField(
   }
 
   if (typeof rootValue === 'string') {
-    const result: NormalizedExportsLikeMap = new Map([['.', rootValue]]);
+    const result                           = new Map([['.', rootValue]]);
     _normalizedExportsFields.set(exportsField, result);
     return result;
   }
@@ -207,7 +207,7 @@ function normalizeExportsField(
   const importKeys = firstLevelKeys.filter(key => key.startsWith('#'));
 
   if (importKeys.length + subpathKeys.length === firstLevelKeys.length) {
-    const result: NormalizedExportsLikeMap = new Map(
+    const result                           = new Map(
       Object.entries(flattenLegacySubpathValues(rootValue, createConfigError)),
     );
     _normalizedExportsFields.set(exportsField, result);
@@ -221,7 +221,7 @@ function normalizeExportsField(
     );
   }
 
-  const result: NormalizedExportsLikeMap = new Map([
+  const result                           = new Map([
     ['.', flattenLegacySubpathValues(rootValue, createConfigError)],
   ]);
   _normalizedExportsFields.set(exportsField, result);
@@ -232,9 +232,9 @@ function normalizeExportsField(
  * Flatten legacy Node.js <13.7 array subpath values in an exports mapping.
  */
 function flattenLegacySubpathValues(
-  exportMap: ExportsLikeMap | ExportMapWithFallbacks,
-  createConfigError: (reason: string) => Error,
-): ExportsLikeMap {
+  exportMap                                         ,
+  createConfigError                           ,
+)                 {
   return Object.entries(exportMap).reduce(
     (result, [subpath, value]) => {
       // We do not support empty or nested arrays (non-standard)
@@ -250,11 +250,11 @@ function flattenLegacySubpathValues(
       }
       return result;
     },
-    {} as {[subpathOrCondition: string]: string | ExportsLikeMap | null},
+    {}                                                                  ,
   );
 }
 
-function findInvalidPathSegment(subpath: string): ?string {
+function findInvalidPathSegment(subpath        )          {
   for (const segment of subpath.split(/[\\/]/)) {
     if (
       segment === '' ||

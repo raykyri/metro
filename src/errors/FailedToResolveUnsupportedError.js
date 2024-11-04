@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict
+ *       strict
  * @format
  * @oncall react_native
  */
@@ -12,7 +12,7 @@
 'use strict';
 
 class FailedToResolveUnsupportedError extends Error {
-  constructor(message: string) {
+  constructor(message        ) {
     super(message);
   }
 }

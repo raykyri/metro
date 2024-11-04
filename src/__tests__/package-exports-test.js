@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
@@ -482,7 +482,7 @@ describe('with package exports resolution enabled', () => {
       test('should resolve subpath in "exports"', () => {
         const context = {
           ...baseContext,
-          resolveHastePackage(name: string) {
+          resolveHastePackage(name        ) {
             if (name === 'test-pkg') {
               return '/root/node_modules/test-pkg/package.json';
             }
@@ -869,7 +869,7 @@ describe('with package exports resolution enabled', () => {
 
     test('should resolve assets using "exports" field and calling `resolveAsset`', () => {
       const resolveAsset = jest.fn(
-        (dirPath: string, basename: string, extension: string) => {
+        (dirPath        , basename        , extension        ) => {
           const basePath = dirPath + path.sep + basename;
           const assets = [
             basePath + extension,

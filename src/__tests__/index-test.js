@@ -4,14 +4,14 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
 'use strict';
 
-import type {ResolutionContext} from '../index';
+                                                
 
 import {createResolutionContext} from './utils';
 
@@ -64,17 +64,17 @@ const fileMap = {
   '/haste/some-package/main.js': '',
 };
 
-const CONTEXT: ResolutionContext = {
+const CONTEXT                    = {
   ...createResolutionContext(fileMap),
   originModulePath: '/root/project/foo.js',
-  resolveHasteModule: (name: string) => {
+  resolveHasteModule: (name        ) => {
     const candidate = '/haste/' + name + '.js';
     if (candidate in fileMap) {
       return candidate;
     }
     return null;
   },
-  resolveHastePackage: (name: string) => {
+  resolveHastePackage: (name        ) => {
     const candidate = '/haste/' + name + '/package.json';
     if (candidate in fileMap) {
       return candidate;
@@ -560,7 +560,7 @@ describe('redirectModulePath', () => {
 
 describe('resolveRequest', () => {
   // $FlowFixMe[unclear-type]: `resolveRequest` is used too dynamically.
-  const resolveRequest = jest.fn<any, any>();
+  const resolveRequest = jest.fn          ();
   const context = {...CONTEXT, resolveRequest};
 
   beforeEach(() => {
@@ -645,7 +645,7 @@ describe('resolveRequest', () => {
   test('is called with the platform and non-redirected module path', () => {
     const contextWithRedirect = {
       ...context,
-      redirectModulePath: (filePath: string) => filePath + '.redirected',
+      redirectModulePath: (filePath        ) => filePath + '.redirected',
     };
     expect(Resolver.resolve(contextWithRedirect, 'does-not-exist', 'android'))
       .toMatchInlineSnapshot(`
@@ -668,7 +668,7 @@ describe('resolveRequest', () => {
     }));
     const contextWithRedirect = {
       ...context,
-      redirectModulePath: (filePath: string) => false,
+      redirectModulePath: (filePath        ) => false,
     };
     expect(Resolver.resolve(contextWithRedirect, 'does-not-exist', 'android'))
       .toMatchInlineSnapshot(`

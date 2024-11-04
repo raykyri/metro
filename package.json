@@ -1,6 +1,6 @@
 {
-  "name": "metro-packages",
-  "version": "0.81.0-patch.0",
+  "name": "metro",
+  "version": "0.81.0",
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.25.2",

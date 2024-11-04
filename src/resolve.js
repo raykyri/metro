@@ -19,19 +19,19 @@
          
                  
 
-import FailedToResolveNameError from './errors/FailedToResolveNameError';
-import FailedToResolvePathError from './errors/FailedToResolvePathError';
-import formatFileCandidates from './errors/formatFileCandidates';
-import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
-import InvalidPackageError from './errors/InvalidPackageError';
-import PackageImportNotResolvedError from './errors/PackageImportNotResolvedError';
-import PackagePathNotExportedError from './errors/PackagePathNotExportedError';
-import {resolvePackageTargetFromExports} from './PackageExportsResolve';
-import {resolvePackageTargetFromImports} from './PackageImportsResolve';
-import {getPackageEntryPoint, redirectModulePath} from './PackageResolve';
-import resolveAsset from './resolveAsset';
-import isAssetFile from './utils/isAssetFile';
-import path from 'path';
+const FailedToResolveNameError = require('./errors/FailedToResolveNameError');
+const FailedToResolvePathError = require('./errors/FailedToResolvePathError');
+const formatFileCandidates = require('./errors/formatFileCandidates');
+const InvalidPackageConfigurationError = require('./errors/InvalidPackageConfigurationError');
+const InvalidPackageError = require('./errors/InvalidPackageError');
+const PackageImportNotResolvedError = require('./errors/PackageImportNotResolvedError');
+const PackagePathNotExportedError = require('./errors/PackagePathNotExportedError');
+const {resolvePackageTargetFromExports} = require('./PackageExportsResolve');
+const {resolvePackageTargetFromImports} = require('./PackageImportsResolve');
+const {getPackageEntryPoint, redirectModulePath} = require('./PackageResolve');
+const resolveAsset = require('./resolveAsset');
+const isAssetFile = require('./utils/isAssetFile');
+const path = require('path');
 
                                       
                         

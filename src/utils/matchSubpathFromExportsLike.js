@@ -9,10 +9,8 @@
  * @oncall react_native
  */
 
-                                                                          
-
-import {matchSubpathPattern} from './matchSubpathPattern';
-import {reduceExportsLikeMap} from './reduceExportsLikeMap';
+const {matchSubpathPattern} = require('./matchSubpathPattern');
+const {reduceExportsLikeMap} = require('./reduceExportsLikeMap');
 
 /**
  * Get the mapped replacement for the given subpath.
@@ -20,20 +18,13 @@ import {reduceExportsLikeMap} from './reduceExportsLikeMap';
  * Implements modern package resolution behaviour based on the [Package Entry
  * Points spec](https://nodejs.org/docs/latest-v19.x/api/packages.html#package-entry-points).
  */
-export function matchSubpathFromExportsLike(
-  context                   ,
-  /**
-   * The package-relative subpath (beginning with '.') to match against either
-   * an exact subpath key or subpath pattern key in "exports".
-   */
-  subpath        ,
-  exportsLikeMap                          ,
-  platform               ,
-  createConfigError                           ,
-)             
-                        
-                              
-   {
+function matchSubpathFromExportsLike(
+  context,
+  subpath,
+  exportsLikeMap,
+  platform,
+  createConfigError,
+) {
   const conditionNames = new Set([
     'default',
     ...context.unstable_conditionNames,
@@ -78,3 +69,7 @@ export function matchSubpathFromExportsLike(
 
   return {target: target ?? null, patternMatch};
 }
+
+module.exports = {
+  matchSubpathFromExportsLike,
+};

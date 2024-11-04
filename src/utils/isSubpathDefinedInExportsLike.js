@@ -16,12 +16,12 @@
  */
                                                        
 
-import {matchSubpathPattern} from './matchSubpathPattern';
+const {matchSubpathPattern} = require('./matchSubpathPattern');
 
-export function isSubpathDefinedInExportsLike(
-  exportsLikeMap                          ,
-  subpath        ,
-)          {
+function isSubpathDefinedInExportsLike(
+  exportsLikeMap,
+  subpath,
+) {
   if (exportsLikeMap.has(subpath)) {
     return true;
   }
@@ -38,3 +38,7 @@ export function isSubpathDefinedInExportsLike(
 
   return false;
 }
+
+module.exports = {
+  isSubpathDefinedInExportsLike,
+};

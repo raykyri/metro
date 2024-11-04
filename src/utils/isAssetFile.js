@@ -9,16 +9,13 @@
  * @oncall react_native
  */
 
-import path from 'path';
+const path = require('path');
 
 /**
  * Determine if a file path should be considered an asset file based on the
  * given `assetExts`.
  */
-export default function isAssetFile(
-  filePath        ,
-  assetExts                      ,
-)          {
+function isAssetFile(filePath, assetExts) {
   const baseName = path.basename(filePath);
 
   for (let i = baseName.length - 1; i >= 0; i--) {
@@ -33,3 +30,5 @@ export default function isAssetFile(
 
   return false;
 }
+
+module.exports = isAssetFile;

@@ -9,15 +9,13 @@
  * @oncall react_native
  */
 
-                                                                               
-
-import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
-import PackageImportNotResolvedError from './errors/PackageImportNotResolvedError';
-import resolveAsset from './resolveAsset';
-import isAssetFile from './utils/isAssetFile';
-import {isSubpathDefinedInExportsLike} from './utils/isSubpathDefinedInExportsLike';
-import {matchSubpathFromExportsLike} from './utils/matchSubpathFromExportsLike';
-import path from 'path';
+const InvalidPackageConfigurationError = require('./errors/InvalidPackageConfigurationError');
+const PackageImportNotResolvedError = require('./errors/PackageImportNotResolvedError');
+const resolveAsset = require('./resolveAsset');
+const isAssetFile = require('./utils/isAssetFile');
+const {isSubpathDefinedInExportsLike} = require('./utils/isSubpathDefinedInExportsLike');
+const {matchSubpathFromExportsLike} = require('./utils/matchSubpathFromExportsLike');
+const path = require('path');
 
 /**
  * Resolve a package subpath based on the entry points defined in the package's
@@ -30,17 +28,14 @@ import path from 'path';
  * @throws {InvalidPackageConfigurationError} Raised if configuration specified
  *   by `importsMap` is invalid.
  */
-export function resolvePackageTargetFromImports(
-  context                   ,
-  /**
-   * The absolute path to the package.json
-   */
-  packagePath        ,
-  importPath        ,
-  importsMap                ,
-  platform               ,
-)                 {
-  const createConfigError = (reason        ) => {
+function resolvePackageTargetFromImports(
+  context,
+  packagePath,
+  importPath,
+  importsMap,
+  platform,
+) {
+  const createConfigError = (reason) => {
     return new InvalidPackageConfigurationError({
       reason,
       packagePath,
@@ -108,3 +103,7 @@ export function resolvePackageTargetFromImports(
       'however this file does not exist.',
   );
 }
+
+module.exports = {
+  resolvePackageTargetFromImports,
+};

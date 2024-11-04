@@ -9,7 +9,7 @@
  * @oncall react_native
  */
 
-import path from 'path';
+const path = require('path');
 
 const MATCH_NON_POSIX_PATH_SEPS = new RegExp('\\' + path.win32.sep, 'g');
 
@@ -17,7 +17,7 @@ const MATCH_NON_POSIX_PATH_SEPS = new RegExp('\\' + path.win32.sep, 'g');
  * Replace path separators in the passed string to coerce to a POSIX path. This
  * is a no-op on POSIX systems.
  */
-export default function toPosixPath(relativePathOrSpecifier        )         {
+function toPosixPath(relativePathOrSpecifier) {
   if (path.sep === path.posix.sep) {
     return relativePathOrSpecifier;
   }
@@ -27,3 +27,5 @@ export default function toPosixPath(relativePathOrSpecifier        )         {
     path.posix.sep,
   );
 }
+
+module.exports = toPosixPath;

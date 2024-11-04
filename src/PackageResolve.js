@@ -9,10 +9,8 @@
  * @oncall react_native
  */
 
-                                                                         
-
-import toPosixPath from './utils/toPosixPath';
-import path from 'path';
+const toPosixPath = require('./utils/toPosixPath');
+const path = require('path');
 
 /**
  * Resolve the main entry point subpath for a package.
@@ -20,11 +18,11 @@ import path from 'path';
  * Implements legacy (non-exports) package resolution behaviour based on the
  * ["browser" field spec](https://github.com/defunctzombie/package-browser-field-spec).
  */
-export function getPackageEntryPoint(
-  context                   ,
-  packageInfo             ,
-  platform               ,
-)         {
+function getPackageEntryPoint(
+  context,
+  packageInfo,
+  platform,
+) {
   const {mainFields} = context;
   const pkg = packageInfo.packageJson;
 
@@ -70,30 +68,10 @@ export function getPackageEntryPoint(
  * Implements legacy (non-exports) package resolution behaviour based on the
  * ["browser" field spec](https://github.com/defunctzombie/package-browser-field-spec).
  */
-export function redirectModulePath(
-  context             
-                                                                  
-                                                
-                                                            
-       
-    ,
-
-  /**
-   * The module path being imported. This may be:
-   *
-   * - A relative specifier (beginning with '.'), which may be redirected by a
-   *   `package.json` file local to `context.originModulePath`.
-   *     - Note: A path begining with '/' is treated as an absolute specifier
-   *       (non-standard).
-   * - A bare specifier (e.g. 'some-pkg', 'some-pkg/foo'), which may be
-   *   redirected by `package.json` rules in the containing package.
-   * - An absolute specifier, which may be redirected by `package.json` rules
-   *   in the containing package (non-standard, "browser" spec only).
-   *
-   * See https://nodejs.org/docs/latest-v19.x/api/esm.html#import-specifiers
-   */
-  modulePath        ,
-)                 {
+function redirectModulePath(
+  context,
+  modulePath,
+) {
   const {getPackageForModule, mainFields, originModulePath} = context;
   const isModulePathAbsolute = path.isAbsolute(modulePath);
 
@@ -170,10 +148,10 @@ function matchSubpathFromMainFields(
    * package-relative subpath (beginning with '.') or a bare import specifier
    * which may replace a module in another package.
    */
-  subpath                                 ,
-  pkg             ,
-  mainFields                        ,
-)                        {
+  subpath,
+  pkg,
+  mainFields,
+) {
   const fieldValues = mainFields
     // $FlowFixMe[invalid-computed-prop]
     .map(name => pkg[name])
@@ -203,6 +181,11 @@ function matchSubpathFromMainFields(
  * Get the expanded variants for a given subpath to try against mappings in
  * `package.json`. This is unique to "main" and the "browser" spec.
  */
-function expandSubpathVariants(subpath        )                {
+function expandSubpathVariants(subpath) {
   return [subpath, subpath + '.js', subpath + '.json'];
 }
+
+module.exports = {
+  getPackageEntryPoint,
+  redirectModulePath,
+};

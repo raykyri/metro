@@ -9,15 +9,7 @@
  * @oncall react_native
  */
 
-                                               
-                                                                                 
-
-import {redirectModulePath} from './PackageResolve';
-
-                                 
-                       
-                                                               
-   
+const {redirectModulePath} = require('./PackageResolve');
 
 /**
  * Helper used by the `metro` package to create the `ResolutionContext` object.
@@ -25,11 +17,11 @@ import {redirectModulePath} from './PackageResolve';
  * `resolve.js`.
  */
 function createDefaultContext(
-  context                ,
-  dependency                           ,
-)                    {
+  context,
+  dependency,
+) {
   return {
-    redirectModulePath: (modulePath        ) =>
+    redirectModulePath: (modulePath) =>
       redirectModulePath(context, modulePath),
     dependency,
     ...context,

@@ -18,14 +18,14 @@
                     
                  
 
-import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
-import PackagePathNotExportedError from './errors/PackagePathNotExportedError';
-import resolveAsset from './resolveAsset';
-import isAssetFile from './utils/isAssetFile';
-import {isSubpathDefinedInExportsLike} from './utils/isSubpathDefinedInExportsLike';
-import {matchSubpathFromExportsLike} from './utils/matchSubpathFromExportsLike';
-import toPosixPath from './utils/toPosixPath';
-import path from 'path';
+const InvalidPackageConfigurationError = require('./errors/InvalidPackageConfigurationError');
+const PackagePathNotExportedError = require('./errors/PackagePathNotExportedError');
+const resolveAsset = require('./resolveAsset');
+const isAssetFile = require('./utils/isAssetFile');
+const {isSubpathDefinedInExportsLike} = require('./utils/isSubpathDefinedInExportsLike');
+const {matchSubpathFromExportsLike} = require('./utils/matchSubpathFromExportsLike');
+const toPosixPath = require('./utils/toPosixPath');
+const path = require('path')
 
 /**
  * Resolve a package subpath based on the entry points defined in the package's
@@ -43,7 +43,11 @@ import path from 'path';
  * @throws {PackagePathNotExportedError} Raised when the requested subpath is
  *   not exported.
  */
-export function resolvePackageTargetFromExports(
+module.exports = {
+  resolvePackageTargetFromExports,
+};
+
+function resolvePackageTargetFromExports(
   context                   ,
   /**
    * The path to the containing npm package directory.
@@ -57,7 +61,7 @@ export function resolvePackageTargetFromExports(
   packageRelativePath        ,
   exportsField              ,
   platform               ,
-)                 {
+) {
   const createConfigError = (reason        ) => {
     return new InvalidPackageConfigurationError({
       reason,

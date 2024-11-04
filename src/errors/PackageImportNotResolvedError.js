@@ -13,24 +13,19 @@
  * Raised when package imports do not define or permit a target subpath in the
  * package for the given import specifier.
  */
-export default class PackageImportNotResolvedError extends Error {
+class PackageImportNotResolvedError extends Error {
   /**
    * Either the import specifier read, or the absolute path of the module being
    * resolved (used when import specifier is externally remapped).
    */
-   importSpecifier        ;
+   importSpecifier;
 
   /**
    * The description of the error cause.
    */
-   reason        ;
+   reason;
 
-  constructor(
-    opts             
-                              
-                     
-      ,
-  ) {
+  constructor(opts) {
     super(
       `The path for ${opts.importSpecifier} could not be resolved.\nReason: ` +
         opts.reason,
@@ -39,3 +34,5 @@ export default class PackageImportNotResolvedError extends Error {
     this.reason = opts.reason;
   }
 }
+
+module.exports = PackageImportNotResolvedError;

@@ -13,4 +13,6 @@
  * Raised when package exports do not define or permit a target subpath in the
  * package for the given module.
  */
-export default class PackagePathNotExportedError extends Error {}
+class PackagePathNotExportedError extends Error {}
+
+module.exports = PackagePathNotExportedError;

@@ -9,14 +9,14 @@
  * @oncall react_native
  */
 
-const path = require('path');
+import path from 'path';
 
 /**
  * Resolve a file path as an asset. Returns the set of files found after
  * expanding asset resolutions (e.g. `icon@2x.png`). Users may override this
  * behaviour via `context.resolveAsset`.
  */
-module.exports = function resolveAsset(
+export default function resolveAsset(
   context,
   filePath,
 ) {

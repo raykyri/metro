@@ -12,7 +12,7 @@
 /**
  * Raised when a package contains an invalid `package.json` configuration.
  */
-export default class InvalidPackageConfigurationError extends Error {
+class InvalidPackageConfigurationError extends Error {
   /**
    * The description of the error cause.
    */
@@ -38,3 +38,5 @@ export default class InvalidPackageConfigurationError extends Error {
     Object.assign(this, opts);
   }
 }
+
+module.exports = InvalidPackageConfigurationError;

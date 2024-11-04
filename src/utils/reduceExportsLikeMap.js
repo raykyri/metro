@@ -13,18 +13,13 @@
  * Reduce an "exports"-like mapping to a flat subpath mapping after resolving
  * conditional exports.
  */
-             
-                 
-                     
-                           
-                  
 
-export function reduceExportsLikeMap(
-  exportsLikeMap                          ,
-  conditionNames                      ,
-  createConfigError                           ,
-)                     {
-  const result = new Map                       ();
+function reduceExportsLikeMap(
+  exportsLikeMap,
+  conditionNames,
+  createConfigError,
+) {
+  const result = new Map();
 
   for (const [subpath, value] of exportsLikeMap) {
     const subpathValue = reduceConditionalExport(value, conditionNames);
@@ -52,20 +47,15 @@ export function reduceExportsLikeMap(
 /**
  * Reduce an "exports"-like subpath value after asserting the passed
  * `conditionNames` in any nested conditions.
- *
- * Returns `'no-match'` in the case that none of the asserted `conditionNames`
- * are matched.
- *
- * See https://nodejs.org/docs/latest-v19.x/api/packages.html#conditional-exports.
  */
 function reduceConditionalExport(
-  subpathValue                         ,
-  conditionNames                      ,
-)                             {
+  subpathValue,
+  conditionNames,
+) {
   let reducedValue = subpathValue;
 
   while (reducedValue != null && typeof reducedValue !== 'string') {
-    let match                                  ;
+    let match;
 
     // when conditions are present and default is not specified
     // the default condition is implicitly set to null, to allow
@@ -88,3 +78,8 @@ function reduceConditionalExport(
 
   return reducedValue;
 }
+
+// Export the main function
+module.exports = {
+  reduceExportsLikeMap,
+};

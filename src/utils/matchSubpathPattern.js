@@ -15,10 +15,7 @@
  *
  * See https://nodejs.org/docs/latest-v19.x/api/packages.html#subpath-patterns.
  */
-export function matchSubpathPattern(
-  subpathPattern        ,
-  subpath        ,
-)                {
+function matchSubpathPattern(subpathPattern, subpath) {
   const [patternBase, patternTrailer] = subpathPattern.split('*');
 
   if (subpath.startsWith(patternBase) && subpath.endsWith(patternTrailer)) {
@@ -30,3 +27,7 @@ export function matchSubpathPattern(
 
   return null;
 }
+
+module.exports = {
+  matchSubpathPattern,
+};

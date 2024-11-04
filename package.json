@@ -1,75 +1,24 @@
 {
-  "name": "metro",
+  "name": "metro-resolver",
   "version": "0.81.0",
-  "private": true,
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/plugin-syntax-class-properties": "^7.12.13",
-    "@babel/plugin-transform-flow-strip-types": "^7.25.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.24.8",
-    "@babel/plugin-transform-react-jsx": "^7.25.2",
-    "@babel/types": "^7.25.2",
-    "@tsconfig/node18": "1.0.1",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
-    "acorn": "^8.7.1",
-    "babel-jest": "^29.6.3",
-    "babel-plugin-syntax-hermes-parser": "0.24.0",
-    "babel-plugin-transform-flow-enums": "^0.0.2",
-    "chalk": "^4.0.0",
-    "debug": "^2.2.0",
-    "eslint": "^8.57.0",
-    "eslint-config-fb-strict": "^27.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-ft-flow": "^2.0.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^28.8.3",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
-    "eslint-plugin-lint": "^1.0.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.30.1",
-    "eslint-plugin-relay": "^1.8.3",
-    "flow-bin": "^0.251.1",
-    "glob": "^7.1.1",
-    "hermes-eslint": "0.24.0",
-    "invariant": "^2.2.4",
-    "istanbul-api": "3.0.0",
-    "istanbul-lib-coverage": "3.0.0",
-    "jest": "^29.6.3",
-    "jest-junit": "^10.0.0",
-    "jest-watch-typeahead": "^2.2.0",
-    "jsonc-eslint-parser": "^2.3.0",
-    "metro-babel-register": "*",
-    "micromatch": "^4.0.4",
-    "prettier": "2.8.8",
-    "prettier-plugin-hermes-parser": "0.24.0",
-    "progress": "^2.0.0",
-    "typescript": "5.0.4"
+  "description": "🚇 Implementation of Metro's resolution logic.",
+  "main": "src",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:facebook/metro.git"
   },
   "scripts": {
-    "build-clean": "rm -rf ./packages/*/build",
-    "build": "node ./scripts/build.js",
-    "clean-all": "rm -rf ./node_modules && rm -rf ./packages/*/node_modules && yarn run build-clean",
-    "lint-fix": "eslint . --fix --cache",
-    "lint": "eslint . --cache",
-    "postpublish": "yarn workspaces run cleanup-release",
-    "publish": "yarn run build-clean && yarn run build && yarn workspaces run prepare-release && npm publish --workspaces",
-    "start": "node packages/metro/src/cli",
-    "test": "yarn run typecheck && yarn run lint && yarn run build && yarn run jest",
-    "test-coverage": "yarn run build && yarn run jest --coverage -i && node scripts/mapCoverage.js",
-    "test-smoke": "yarn start build --config packages/metro/src/integration_tests/metro.config.js TestBundle.js --out /tmp/TestBundle",
-    "typecheck": "flow check",
-    "typecheck-ts": "tsc --project tsconfig.json",
-    "update-babel-flow-lib-defs": "node -r @babel/register ./scripts/updateBabelFlowLibraryDefinitions",
-    "update-version": "node ./scripts/updateVersion"
+    "prepare-release": "test -d build && rm -rf src.real && mv src src.real && mv build src",
+    "cleanup-release": "test ! -e build && mv src build && mv src.real src"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "license": "MIT",
-  "dependencies": {},
   "engines": {
     "node": ">=18.18"
+  },
+  "devDependencies": {
+    "metro": "0.81.0"
+  },
+  "dependencies": {
+    "flow-enums-runtime": "^0.0.6"
   }
 }

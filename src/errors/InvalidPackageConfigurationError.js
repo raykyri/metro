@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict
+ *       strict
  * @format
  * @oncall react_native
  */
@@ -12,22 +12,22 @@
 /**
  * Raised when a package contains an invalid `package.json` configuration.
  */
-export default class InvalidPackageConfigurationError extends Error {
+module.exports = class InvalidPackageConfigurationError extends Error {
   /**
    * The description of the error cause.
    */
-  reason: string;
+  reason        ;
 
   /**
    * Absolute path of the package being resolved.
    */
-  packagePath: string;
+  packagePath        ;
 
   constructor(
-    opts: $ReadOnly<{
-      reason: string,
-      packagePath: string,
-    }>,
+    opts
+
+
+      ,
   ) {
     super(
       `The package ${opts.packagePath} contains an invalid package.json ` +

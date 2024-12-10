@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict
+ *       strict
  * @format
  * @oncall react_native
  */
@@ -13,23 +13,23 @@
  * Raised when package imports do not define or permit a target subpath in the
  * package for the given import specifier.
  */
-export default class PackageImportNotResolvedError extends Error {
+module.exports = class PackageImportNotResolvedError extends Error {
   /**
    * Either the import specifier read, or the absolute path of the module being
    * resolved (used when import specifier is externally remapped).
    */
-  +importSpecifier: string;
+   importSpecifier        ;
 
   /**
    * The description of the error cause.
    */
-  +reason: string;
+   reason        ;
 
   constructor(
-    opts: $ReadOnly<{
-      importSpecifier: string,
-      reason: string,
-    }>,
+    opts
+
+
+      ,
   ) {
     super(
       `The path for ${opts.importSpecifier} could not be resolved.\nReason: ` +

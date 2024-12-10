@@ -4,14 +4,14 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
 'use strict';
 
-import type {FileCandidates} from '../types';
+                                             
 
 const formatFileCandidates = require('./formatFileCandidates');
 
@@ -21,29 +21,29 @@ class InvalidPackageError extends Error {
    * package. Ex. `/js/foo/beep(.js|.json)?` if `main` is specifying `./beep`
    * as the entry point.
    */
-  fileCandidates: FileCandidates;
+  fileCandidates                ;
   /**
    * The 'index' file candidates we tried to find to resolve the `main` field of
    * the package. Ex. `/js/foo/beep/index(.js|.json)?` if `main` is specifying
    * `./beep` as the entry point.
    */
-  indexCandidates: FileCandidates;
+  indexCandidates                ;
   /**
    * The full path to the main module that was attempted.
    */
-  mainModulePath: string;
+  mainModulePath        ;
   /**
    * Full path the package we were trying to resolve.
    * Ex. `/js/foo/package.json`.
    */
-  packageJsonPath: string;
+  packageJsonPath        ;
 
-  constructor(opts: {
-    +fileCandidates: FileCandidates,
-    +indexCandidates: FileCandidates,
-    +mainModulePath: string,
-    +packageJsonPath: string,
-  }) {
+  constructor(opts   
+                                    
+                                     
+                            
+                             
+   ) {
     super(
       `The package \`${opts.packageJsonPath}\` is invalid because it ` +
         'specifies a `main` module field that could not be resolved (' +

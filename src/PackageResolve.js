@@ -4,15 +4,15 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow strict-local
+ *       strict-local
  * @format
  * @oncall react_native
  */
 
-import type {PackageInfo, PackageJson, ResolutionContext} from './types';
 
-import toPosixPath from './utils/toPosixPath';
-import path from 'path';
+
+const toPosixPath = require('./utils/toPosixPath');
+const path = require('path');
 
 /**
  * Resolve the main entry point subpath for a package.
@@ -20,11 +20,11 @@ import path from 'path';
  * Implements legacy (non-exports) package resolution behaviour based on the
  * ["browser" field spec](https://github.com/defunctzombie/package-browser-field-spec).
  */
-export function getPackageEntryPoint(
-  context: ResolutionContext,
-  packageInfo: PackageInfo,
-  platform: string | null,
-): string {
+function getPackageEntryPoint(
+  context                   ,
+  packageInfo             ,
+  platform               ,
+)         {
   const {mainFields} = context;
   const pkg = packageInfo.packageJson;
 
@@ -70,13 +70,13 @@ export function getPackageEntryPoint(
  * Implements legacy (non-exports) package resolution behaviour based on the
  * ["browser" field spec](https://github.com/defunctzombie/package-browser-field-spec).
  */
-export function redirectModulePath(
-  context: $ReadOnly<{
-    getPackageForModule: ResolutionContext['getPackageForModule'],
-    mainFields: ResolutionContext['mainFields'],
-    originModulePath: ResolutionContext['originModulePath'],
-    ...
-  }>,
+function redirectModulePath(
+  context
+
+
+
+
+    ,
 
   /**
    * The module path being imported. This may be:
@@ -92,8 +92,8 @@ export function redirectModulePath(
    *
    * See https://nodejs.org/docs/latest-v19.x/api/esm.html#import-specifiers
    */
-  modulePath: string,
-): string | false {
+  modulePath        ,
+)                 {
   const {getPackageForModule, mainFields, originModulePath} = context;
   const isModulePathAbsolute = path.isAbsolute(modulePath);
 
@@ -170,10 +170,10 @@ function matchSubpathFromMainFields(
    * package-relative subpath (beginning with '.') or a bare import specifier
    * which may replace a module in another package.
    */
-  subpath: string | $ReadOnlyArray<string>,
-  pkg: PackageJson,
-  mainFields: $ReadOnlyArray<string>,
-): string | false | null {
+  subpath                                 ,
+  pkg             ,
+  mainFields                        ,
+)                        {
   const fieldValues = mainFields
     // $FlowFixMe[invalid-computed-prop]
     .map(name => pkg[name])
@@ -203,6 +203,8 @@ function matchSubpathFromMainFields(
  * Get the expanded variants for a given subpath to try against mappings in
  * `package.json`. This is unique to "main" and the "browser" spec.
  */
-function expandSubpathVariants(subpath: string): Array<string> {
+function expandSubpathVariants(subpath        )                {
   return [subpath, subpath + '.js', subpath + '.json'];
 }
+
+module.exports = { getPackageEntryPoint, redirectModulePath }

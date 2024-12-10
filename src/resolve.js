@@ -4,49 +4,49 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @flow
+ *
  * @format
  * @oncall react_native
  */
 
 'use strict';
 
-import type {
-  FileAndDirCandidates,
-  FileCandidates,
-  Resolution,
-  ResolutionContext,
-  Result,
-} from './types';
 
-import FailedToResolveNameError from './errors/FailedToResolveNameError';
-import FailedToResolvePathError from './errors/FailedToResolvePathError';
-import formatFileCandidates from './errors/formatFileCandidates';
-import InvalidPackageConfigurationError from './errors/InvalidPackageConfigurationError';
-import InvalidPackageError from './errors/InvalidPackageError';
-import PackageImportNotResolvedError from './errors/PackageImportNotResolvedError';
-import PackagePathNotExportedError from './errors/PackagePathNotExportedError';
-import {resolvePackageTargetFromExports} from './PackageExportsResolve';
-import {resolvePackageTargetFromImports} from './PackageImportsResolve';
-import {getPackageEntryPoint, redirectModulePath} from './PackageResolve';
-import resolveAsset from './resolveAsset';
-import isAssetFile from './utils/isAssetFile';
-import path from 'path';
 
-type ParsedBareSpecifier = $ReadOnly<{
-  isSinglePart: boolean,
-  isValidPackageName: boolean,
-  firstPart: string,
-  normalizedSpecifier: string,
-  packageName: string,
-  posixSubpath: string,
-}>;
+
+
+
+
+
+
+const FailedToResolveNameError = require('./errors/FailedToResolveNameError');
+const FailedToResolvePathError = require('./errors/FailedToResolvePathError');
+const formatFileCandidates = require('./errors/formatFileCandidates');
+const InvalidPackageConfigurationError = require('./errors/InvalidPackageConfigurationError');
+const InvalidPackageError = require('./errors/InvalidPackageError');
+const PackageImportNotResolvedError = require('./errors/PackageImportNotResolvedError');
+const PackagePathNotExportedError = require('./errors/PackagePathNotExportedError');
+const {resolvePackageTargetFromExports} = require('./PackageExportsResolve');
+const {resolvePackageTargetFromImports} = require('./PackageImportsResolve');
+const {getPackageEntryPoint, redirectModulePath} = require('./PackageResolve');
+const resolveAsset = require('./resolveAsset');
+const isAssetFile = require('./utils/isAssetFile');
+const path = require('path');
+
+
+
+
+
+
+
+
+
 
 function resolve(
-  context: ResolutionContext,
-  moduleName: string,
-  platform: string | null,
-): Resolution {
+  context                   ,
+  moduleName        ,
+  platform               ,
+)             {
   const resolveRequest = context.resolveRequest;
   if (
     resolveRequest &&
@@ -234,7 +234,7 @@ function resolve(
   throw new FailedToResolveNameError(nodeModulesPaths, extraPaths);
 }
 
-function parseBareSpecifier(specifier: string): ParsedBareSpecifier {
+function parseBareSpecifier(specifier        )                      {
   const normalized =
     path.sep === '/' ? specifier : specifier.replaceAll('\\', '/');
   const firstSepIdx = normalized.indexOf('/');
@@ -292,10 +292,10 @@ function parseBareSpecifier(specifier: string): ParsedBareSpecifier {
  * `/smth/lib/foobar/index.ios.js`.
  */
 function resolveModulePath(
-  context: ResolutionContext,
-  toModuleName: string,
-  platform: string | null,
-): Result<Resolution, FileAndDirCandidates> {
+  context                   ,
+  toModuleName        ,
+  platform               ,
+)                                           {
   // System-separated absolute path
   const modulePath = path.isAbsolute(toModuleName)
     ? path.sep === '/'
@@ -310,7 +310,7 @@ function resolveModulePath(
   const dirPath = path.dirname(redirectedPath);
   const fileName = path.basename(redirectedPath);
 
-  const fileResult: ?Result<Resolution, FileCandidates> =
+  const fileResult                                      =
     // require('./foo/') should never resolve to ./foo.js - a trailing slash
     // implies we should resolve as a directory only.
     redirectedPath.endsWith(path.sep)
@@ -334,14 +334,14 @@ function resolveModulePath(
  * Resolve a specifier as a Haste package.
  */
 function resolveHastePackage(
-  context: ResolutionContext,
+  context                   ,
   {
     normalizedSpecifier: moduleName,
     packageName,
     posixSubpath: pathInModule,
-  }: ParsedBareSpecifier,
-  platform: string | null,
-): Result<Resolution, void> {
+  }                     ,
+  platform               ,
+)                           {
   const packageJsonPath = context.resolveHastePackage(packageName);
   if (packageJsonPath == null) {
     return failedFor();
@@ -357,17 +357,17 @@ function resolveHastePackage(
 }
 
 class MissingFileInHastePackageError extends Error {
-  candidates: FileAndDirCandidates;
-  moduleName: string;
-  packageName: string;
-  pathInModule: string;
+  candidates                      ;
+  moduleName        ;
+  packageName        ;
+  pathInModule        ;
 
-  constructor(opts: {
-    +candidates: FileAndDirCandidates,
-    +moduleName: string,
-    +packageName: string,
-    +pathInModule: string,
-  }) {
+  constructor(opts
+
+
+
+
+   ) {
     super(
       `While resolving module \`${opts.moduleName}\`, ` +
         `the Haste package \`${opts.packageName}\` was found. However the ` +
@@ -390,14 +390,14 @@ class MissingFileInHastePackageError extends Error {
  * spec behaviour, which is also applicable to relative and absolute imports.
  */
 function resolvePackage(
-  context: ResolutionContext,
+  context                   ,
   /**
    * The absolute path to a file or directory that may be contained within an
    * npm package, e.g. from being joined with `context.extraNodeModules`.
    */
-  absoluteCandidatePath: string,
-  platform: string | null,
-): Result<Resolution, FileAndDirCandidates> {
+  absoluteCandidatePath        ,
+  platform               ,
+)                                           {
   if (context.unstable_enablePackageExports) {
     const pkg = context.getPackageForModule(absoluteCandidatePath);
     const exportsField = pkg?.packageJson.exports;
@@ -461,10 +461,10 @@ function resolvePackage(
  * - Falls back to a child `index.js` file, e.g. `./lib` -> `./lib/index.js`.
  */
 function resolvePackageEntryPoint(
-  context: ResolutionContext,
-  packagePath: string,
-  platform: string | null,
-): Result<Resolution, FileCandidates> {
+  context                   ,
+  packagePath        ,
+  platform               ,
+)                                     {
   const dirLookup = context.fileSystemLookup(packagePath);
   if (dirLookup.exists == false || dirLookup.type !== 'd') {
     return failedFor({
@@ -526,11 +526,11 @@ function resolvePackageEntryPoint(
  * `/js/boop/index.js` (see `_loadAsDir` for that).
  */
 function resolveFile(
-  context: ResolutionContext,
-  dirPath: string,
-  fileName: string,
-  platform: string | null,
-): Result<Resolution, FileCandidates> {
+  context                   ,
+  dirPath        ,
+  fileName        ,
+  platform               ,
+)                                     {
   if (isAssetFile(fileName, context.assetExts)) {
     const assetResolutions = resolveAsset(
       context,
@@ -544,7 +544,7 @@ function resolveFile(
     return resolvedAs(assetResolutions);
   }
 
-  const candidateExts: Array<string> = [];
+  const candidateExts                = [];
   const filePathPrefix = path.join(dirPath, fileName);
   const sfContext = {...context, candidateExts, filePathPrefix};
   const sourceFileResolution = resolveSourceFile(sfContext, platform);
@@ -557,14 +557,14 @@ function resolveFile(
   return failedFor({type: 'sourceFile', filePathPrefix, candidateExts});
 }
 
-type SourceFileContext = $ReadOnly<{
-  ...ResolutionContext,
-  candidateExts: Array<string>,
-  filePathPrefix: string,
-}>;
+
+
+
+
+
 
 // Either a full path, or a restricted subset of Resolution.
-type SourceFileResolution = ?string | $ReadOnly<{type: 'empty'}>;
+
 
 /**
  * A particular 'base path' can resolve to a number of possibilities depending
@@ -577,9 +577,9 @@ type SourceFileResolution = ?string | $ReadOnly<{type: 'empty'}>;
  * be found, or `{type: 'empty'}` if redirected to an empty module.
  */
 function resolveSourceFile(
-  context: SourceFileContext,
-  platform: ?string,
-): SourceFileResolution {
+  context                   ,
+  platform         ,
+)                       {
   let filePath = resolveSourceFileForAllExts(context, '');
   if (filePath) {
     return filePath;
@@ -602,10 +602,10 @@ function resolveSourceFile(
  * `{type: 'empty'}` if redirected to an empty module.
  */
 function resolveSourceFileForAllExts(
-  context: SourceFileContext,
-  sourceExt: string,
-  platform: ?string,
-): SourceFileResolution {
+  context                   ,
+  sourceExt        ,
+  platform         ,
+)                       {
   if (platform != null) {
     const ext = `.${platform}${sourceExt}`;
     const filePath = resolveSourceFileForExt(context, ext);
@@ -628,9 +628,9 @@ function resolveSourceFileForAllExts(
  * we make sure to add the extension to a list of candidates for reporting.
  */
 function resolveSourceFileForExt(
-  context: SourceFileContext,
-  extension: string,
-): SourceFileResolution {
+  context                   ,
+  extension        ,
+)                       {
   const filePath = `${context.filePathPrefix}${extension}`;
   const redirectedPath =
     // Any redirections for the bare path have already happened
@@ -646,23 +646,23 @@ function resolveSourceFileForExt(
   return null;
 }
 
-function isRelativeImport(filePath: string) {
+function isRelativeImport(filePath        ) {
   return /^[.][.]?(?:[/]|$)/.test(filePath);
 }
 
-function isSubpathImport(filePath: string) {
+function isSubpathImport(filePath        ) {
   return filePath.startsWith('#');
 }
 
-function resolvedAs<TResolution, TCandidates>(
-  resolution: TResolution,
-): Result<TResolution, TCandidates> {
+function resolvedAs                          (
+  resolution             ,
+)                                   {
   return {type: 'resolved', resolution};
 }
 
-function failedFor<TResolution, TCandidates>(
-  candidates: TCandidates,
-): Result<TResolution, TCandidates> {
+function failedFor                          (
+  candidates             ,
+)                                   {
   return {type: 'failed', candidates};
 }
 
